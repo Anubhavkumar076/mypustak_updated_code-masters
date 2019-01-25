@@ -28,7 +28,8 @@
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
                 android:padding="15dp"
-                android:src="@drawable/search_icon" />
+                android:src="@drawable/search_icon"
+                android:id="@+id/search_"/>
 
             <ImageView
                 android:id="@+id/home_icon"

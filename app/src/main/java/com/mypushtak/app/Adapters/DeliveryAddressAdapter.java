@@ -56,7 +56,7 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
                 String phone= String.valueOf(address.getPhone_no());
                 Intent i=new Intent(context, EditAddress.class);
                 i.putExtra("addressid",address.getAddress_id());
-                EditAddressData data=new EditAddressData(address.getRec_name(),address.getAddress(),address.getLandmarkh(),address.getState_name(),address.getCity(),pincode,phone);
+                EditAddressData data=new EditAddressData(address.getRec_name(),address.getAddress(),address.getLandmarkh(),address.getState_name(),address.getCity(),pincode,phone,address.getAddress_id());
 
                 Log.d("delivery wala",""+address.getRec_name()+"  "+address.getAddress());
                 Log.d("delivery data",""+data.getContact()+" "+data.getReciever()+" "+data.getPincode()+"  "+data.getTotal_amount());
@@ -69,10 +69,11 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
             public void onClick(View view) {
                 String pincode= String.valueOf(address.getPincode());
                 String phone= String.valueOf(address.getPhone_no());
-                EditAddressData data=new EditAddressData(address.getRec_name(),address.getAddress(),address.getLandmarkh(),address.getState_name(),address.getCity(),pincode,phone);
+                EditAddressData data=new EditAddressData(address.getRec_name(),address.getAddress(),address.getLandmarkh(),address.getState_name(),address.getCity(),pincode,phone,address.getAddress_id());
                 Log.d("delivery wala",""+address.getRec_name()+"  "+address.getAddress());
                 Log.d("delivery data",""+data.getContact()+" "+data.getReciever()+" "+data.getPincode()+"  "+data.getTotal_amount());
                 Intent i=new Intent(context, CaptchaConfirmation.class);
+                i.putExtra("deliver_address_id",""+address.getAddress_id());
                 context.startActivity(i);
 
             }

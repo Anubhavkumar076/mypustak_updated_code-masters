@@ -87,7 +87,7 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.View
         final String name=cartItem.getTitle();
         final String authors=cartItem.getAuthor();
         final int price=cartItem.getPrice();
-     final   int qtys=cartItem.getQty();
+        final   int qtys=cartItem.getQty();
         int shipping=cartItem.getShipping();
         int handling=cartItem.getHandelling();
 

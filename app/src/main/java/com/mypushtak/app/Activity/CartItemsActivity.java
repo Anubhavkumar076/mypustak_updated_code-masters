@@ -16,13 +16,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.mypushtak.app.Adapters.CartItemsAdapter;
-import com.mypushtak.app.Adapters.GridAdapter;
 import com.mypushtak.app.Bean.ConstantUrl;
 import com.mypushtak.app.Bean.MySignleton;
 import com.mypushtak.app.R;
 import com.mypushtak.app.Singleton.CartItems;
-import com.mypushtak.app.Singleton.Delivery_Address;
-import com.mypushtak.app.Singleton.ProductviewSignleton;
+import com.mypushtak.app.Singleton.OrderBookDetails;
 import com.mypushtak.app.Singleton.ProfileDetails;
 
 import org.json.JSONArray;
@@ -40,7 +38,7 @@ public class CartItemsActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private Button prepaid,faster,cod,select_adress;
     private TextView cod_text,subtotal_text,faster_text;
-    private int total_shipping_cost=0,total_handelling_cost=0,qty,subtotal;
+    private int total_shipping_cost=0,total_handelling_cost,qty,subtotal;
     private CartItems cartItems=new CartItems();
     private ProfileDetails pd=new ProfileDetails();
 
@@ -71,6 +69,8 @@ public class CartItemsActivity extends AppCompatActivity {
         select_adress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+ConstantUrl constantUrl=new ConstantUrl();
+                constantUrl.total_handling_cost=total_handelling_cost;
                 Intent i=new Intent(CartItemsActivity.this, DeliveryAddress.class);
                 i.putExtra("total_price",""+subtotal);
 
@@ -117,6 +117,7 @@ public class CartItemsActivity extends AppCompatActivity {
             Log.d("quantitys",""+qty);
             if(cart_item_list.get(i).getPrice()<=150)
             {
+
                 total_price=total_price+(qty*70);
                 int shipping=cart_item_list.get(i).getShipping();
                 int handling=cart_item_list.get(i).getHandelling();
@@ -218,6 +219,10 @@ public class CartItemsActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
 
+                         List<OrderBookDetails> orderBookDetailsList=new ArrayList<>();
+                        OrderBookDetails orderBookDetails1=new OrderBookDetails();
+
+
                         Log.d("fetchCart",""+response.toString());
                         try {
                             JSONArray jsonArray=new JSONArray(response);
@@ -235,6 +240,10 @@ public class CartItemsActivity extends AppCompatActivity {
                                 int s5=jsonObject.optInt("qty");
                                 int s6=jsonObject.optInt("shipping_cost");
                                 int s7=jsonObject.optInt("handelling_cost");
+
+                                OrderBookDetails orderBookDetails=new OrderBookDetails(s3,s5);
+
+                                orderBookDetailsList.add(orderBookDetails);
 
                                 total_shipping_cost+=s6;
                                 total_handelling_cost+=s7;
@@ -259,6 +268,7 @@ public class CartItemsActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        orderBookDetails1.setMyOrders(orderBookDetailsList);
                     }
                 }, new Response.ErrorListener() {
             @Override

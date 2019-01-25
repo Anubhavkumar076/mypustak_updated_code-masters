@@ -8,6 +8,15 @@ public class EditAddressData {
     private static String city;
     private static String pincode;
     private static String total_amount;
+    private static int address_id;
+
+    public static int getAddress_id() {
+        return address_id;
+    }
+
+    public static void setAddress_id(int address_id) {
+        EditAddressData.address_id = address_id;
+    }
 
     public static String getReciever() {
         return reciever;
@@ -78,7 +87,7 @@ public class EditAddressData {
     }
 
 
-    public EditAddressData(String reciever, String address, String landmark, String state, String city, String pincode, String contact) {
+    public EditAddressData(String reciever, String address, String landmark, String state, String city, String pincode, String contact, int address_id) {
         this.reciever = reciever;
         this.address = address;
         this.landmark = landmark;
@@ -86,6 +95,7 @@ public class EditAddressData {
         this.city = city;
         this.pincode = pincode;
         this.contact = contact;
+        this.address_id=address_id;
     }
 
     private static String contact;
